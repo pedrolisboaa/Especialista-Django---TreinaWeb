@@ -4,7 +4,7 @@ from .models import Cliente
 from .forms import ClienteForm
 # Create your views here.
 def index(request):
-    clientes = Cliente.objects.order_by('id')
+    
     
     if request.method == 'POST':
         form = ClienteForm(request.POST)
@@ -16,10 +16,18 @@ def index(request):
             
     context = {
         'form': form,
-        'clientes': clientes,
     }
         
     return render(request, 'index.html', context)
+
+
+def listar(request):
+    clientes = Cliente.objects.order_by('id')
+    context = {
+        'clientes': clientes,
+    }
+    
+    return render(request, 'listar.html', context)
 
 
 def atualizar(request, id_cliente):

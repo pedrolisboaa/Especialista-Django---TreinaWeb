@@ -9,39 +9,14 @@
 </head>
 
 <body>
-
     <h1>Formulário</h1>
+    <h3><a href="{% url 'listar' %}">Listar clientes</a></h3>
     <form action="{% url 'index' %}" method='POST'>
         {% csrf_token %}
         {{form}}
         <button type="submit">Cadastrar</button>
     </form>
 
-    <hr>
-
-    <h1>Lista</h1>
-
-
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Nascimento</th>
-            <th>E-mail</th>
-            <th>Profissão</th>
-        </tr>
-        {% for cliente in clientes %}
-        <tr>
-            <td><a href="{% url 'atualizar' cliente.id  %}">{{cliente.id}}</a></td>
-            <td>{{cliente.nome}}</td>
-            <td>{{cliente.data_nascimento}}</td>
-            <td>{{cliente.email}}</td>
-            <td>{{cliente.profissao}}</td>
-            <td><a href="{% url 'deletar' cliente.id  %}">Deletar</a></td>
-            
-        </tr>
-        {% endfor %}
-    </table>
 </body>
 
 </html>
