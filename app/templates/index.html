@@ -1,14 +1,17 @@
 <!DOCTYPE html>
+{% load bootstrap4 %}
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
 </head>
 <body>
 
     <form action="{% url 'index' %}" method='POST'>
-        {% csrf_token %}
+        {% bootstrap_form form %}
         {{form}}
         <button type="submit">Cadastrar</button>
     </form>

@@ -1,23 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import datetime
-from .forms import ClienteForm
+from django.views.generic import CreateView
+from .models import Cliente
 
 # Create your views here.
-def index(request):
-
-    horario_atual = datetime.datetime.now()
-    form = ClienteForm()
-
-    if request.method == 'POST':
-        form = ClienteForm(request.POST)
-        print('Dentro do post')
-        if form.is_valid():
-            print('Formulário cadastrado!')
-
-    
-
-    context = {
-        'hora': horario_atual,
-        'form': form,
-    }
-    return render(request, 'index.html', context)
+class ClienteCreateView(CreateView):
+    mode = Cliente
+    fields = '__all__'
+    template_name = 'index.html'
