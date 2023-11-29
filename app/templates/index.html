@@ -11,8 +11,13 @@
                         <div class="panel-body">
                             <p>Profissão: {{ cliente.profissao }}</p>
                             <p>Data de Nascimento: {{ cliente.data_nascimento }}</p>
-                            <p>E-mail: {{ cliente.email }}</p>
-                        </div>
+                            {% if cliente.endereco == None %}
+                                <p>E-Endereço: Endereço não informado.</p>
+                            {% else %}
+                                <p>E-Endereço: {{ cliente.endereco }}</p>
+                            {% endif %}
+                            
+                                                    </div>
                         <div class="panel-footer">
                             <a href="{% url 'atualizar' cliente.id %}">Editar</a>
                             <a href="{% url 'deletar' cliente.id %}">Deletar</a>

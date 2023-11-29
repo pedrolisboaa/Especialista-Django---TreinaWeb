@@ -5,7 +5,9 @@
     <div class="container">
         <h1>Cadastrar novo Cliente</h1>
         <form action="{% url 'cadastro' %}" method="POST">
-            {% csrf_token %} {{form}}
+            {% csrf_token %} 
+            {{cliente_form}}
+            {{endereco_form}}
             <button type="submit">Cadastrar</button>
         </form>
     </div>

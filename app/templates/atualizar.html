@@ -3,10 +3,11 @@
 {% block conteudo %}
 
 <div class="container">
-    <h1>atualizar</h1>
+    <h1>Atualizar</h1>
     <form action="{% url 'atualizar' cliente.id %}" method='POST'>
         {% csrf_token %}
-        {{form}}
+        {{cliente_form}}
+        {{endereco_form}}
         <button type="submit">Atualizar</button>
     </form>
 </div>
