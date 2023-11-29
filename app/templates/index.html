@@ -1,22 +1,26 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-</head>
+{% block conteudo %}
 
-<body>
-    <h1>Formulário</h1>
-    <h3><a href="{% url 'listar' %}">Listar clientes</a></h3>
-    <form action="{% url 'index' %}" method='POST'>
-        {% csrf_token %}
-        {{form}}
-        <button type="submit">Cadastrar</button>
-    </form>
+    <div class="container">
+        <div class="row">
+            {% for cliente in clientes %} 
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">{{ cliente.nome }}</div>
+                        <div class="panel-body">
+                            <p>Profissão: {{ cliente.profissao }}</p>
+                            <p>Data de Nascimento: {{ cliente.data_nascimento }}</p>
+                            <p>E-mail: {{ cliente.email }}</p>
+                        </div>
+                        <div class="panel-footer">
+                            <a href="{% url 'atualizar' cliente.id %}">Editar</a>
+                            <a href="{% url 'deletar' cliente.id %}">Deletar</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
-</body>
-
-</html>
+{% endblock conteudo %}

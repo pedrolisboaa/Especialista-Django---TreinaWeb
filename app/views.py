@@ -3,9 +3,17 @@ from django.views.generic import CreateView
 from .models import Cliente
 from .forms import ClienteForm
 # Create your views here.
+
 def index(request):
+    clientes = Cliente.objects.order_by('id')
+    context = {
+        'clientes': clientes,
+    }
     
-    
+    return render(request, 'index.html', context)
+
+
+def cadastro(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)
         if form.is_valid():
@@ -18,16 +26,7 @@ def index(request):
         'form': form,
     }
         
-    return render(request, 'index.html', context)
-
-
-def listar(request):
-    clientes = Cliente.objects.order_by('id')
-    context = {
-        'clientes': clientes,
-    }
-    
-    return render(request, 'listar.html', context)
+    return render(request, 'cadastro.html', context)
 
 
 def atualizar(request, id_cliente):
@@ -37,6 +36,7 @@ def atualizar(request, id_cliente):
         form = ClienteForm(request.POST, instance=cliente)
         if form.is_valid():
             form.save()
+            return redirect('index')
     else:
         form = ClienteForm(instance=cliente)
             
@@ -46,7 +46,6 @@ def atualizar(request, id_cliente):
     }
     return render(request, 'atualizar.html', context)
 
-
 def deletar(request, id_cliente):
     cliente = Cliente.objects.get(pk=id_cliente)
     if request.method == 'POST':
@@ -54,4 +53,5 @@ def deletar(request, id_cliente):
         return redirect('index')
 
     return render(request, 'deletar.html', {'cliente': cliente})
-    
+
+

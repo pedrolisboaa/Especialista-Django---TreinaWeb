@@ -13,3 +13,9 @@ class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
         fields = 'nome', 'data_nascimento', 'email', 'profissao',
+        widgets = {
+            'nome': forms.TextInput(attrs={'class': 'form-control'}),
+            'data_nascimento': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),    
+            'profissao': forms.TextInput(attrs={'class': 'form-control'}),    
+        }
