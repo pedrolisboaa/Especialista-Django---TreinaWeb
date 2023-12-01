@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+    <div class="container">
+        <h1>Cadastrar novo Dependente</h1>
+        <form action="{% url 'dependente' %}" method="POST">
+            {% csrf_token %} 
+            {{form}}
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+
+    <hr>
+
+    <div class="container">
+        <div class="row">
+            {% for dependente in dependentes %} 
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"> Títular: {{ dependente.titular.nome }}</div>
+                        <div class="panel-body">
+                            <p>Nome: {{ dependente.nome }}</p>
+                            <p>Telefone: {{ dependente.telefone }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+{% endblock conteudo %}
+

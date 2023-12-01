@@ -47,6 +47,24 @@ class Cliente(models.Model):
     profissao = models.CharField(max_length=100, null=False, blank=False)
     endereco = models.ForeignKey(Endereco, on_delete=models.SET_NULL, null=True)
     
-
     def __str__(self):
         return self.nome
+
+
+class Dependente(models.Model):
+    nome = models.CharField(max_length=100)
+    telefone = models.CharField(max_length=50)
+    titular = models.ForeignKey(Cliente, on_delete=models.CASCADE, null=False, blank=False)
+    
+    def __str__(self):
+        return self.nome
+
+
+class Atendente(models.Model):
+    nome = models.CharField(max_length=100)
+    email = models.EmailField()
+    clientes = models.ManyToManyField(to=Cliente, related_name='atendente_cliente')
+    
+    def __str__(self):
+        return self.nome
+

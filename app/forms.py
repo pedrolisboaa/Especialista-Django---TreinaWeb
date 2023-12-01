@@ -1,5 +1,5 @@
 from django import forms 
-from .models import Cliente, Endereco
+from .models import Cliente, Endereco, Dependente
 
 
 class EnderecoForm(forms.ModelForm):
@@ -26,3 +26,13 @@ class ClienteForm(forms.ModelForm):
         }
 
 
+class DependenteForm(forms.ModelForm):
+    class Meta:
+        model = Dependente
+        fields = ('nome', 'telefone', 'titular')
+        
+        widgets = {
+            'nome': forms.TextInput(attrs={'class': 'form-control'}),
+            'telefone': forms.TextInput(attrs={'class': 'form-control'}),  
+            'titular': forms.Select(attrs={'class': 'form-control'}),    
+        }

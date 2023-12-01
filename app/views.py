@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
-from .models import Cliente, Endereco
-from .forms import ClienteForm, EnderecoForm
+from .models import Cliente, Endereco, Dependente
+from .forms import ClienteForm, EnderecoForm, DependenteForm
 # Create your views here.
 
 def index(request):
@@ -62,6 +62,7 @@ def atualizar(request, id_cliente):
     }
     return render(request, 'atualizar.html', context)
 
+
 def deletar(request, id_cliente):
     cliente = Cliente.objects.get(pk=id_cliente)
     endereco = cliente.endereco
@@ -74,3 +75,27 @@ def deletar(request, id_cliente):
     return render(request, 'deletar.html', {'cliente': cliente})
 
 
+def dependente(request):
+    
+    dependentes = Dependente.objects.order_by('id')
+    
+    form = DependenteForm()
+    context = {
+        'form': form,
+    }
+    
+    if request.method == 'POST':
+        form = DependenteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dependente')
+    else:
+          form = DependenteForm()
+          
+    context = {
+        'form': form,
+        'dependentes': dependentes,
+    }
+        
+
+    return render(request, 'dependente.html', context)
