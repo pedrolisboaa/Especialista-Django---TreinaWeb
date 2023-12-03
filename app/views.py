@@ -1,13 +1,16 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from .models import Cliente, Endereco, Dependente
-from .forms import ClienteForm, EnderecoForm, DependenteForm
+from .forms import ClienteForm, EnderecoForm, DependenteForm, UsuarioForm
+from django.contrib.auth.models import User
 # Create your views here.
 
 def index(request):
     clientes = Cliente.objects.order_by('id')
+    usuarios = User.objects.order_by('id')
     context = {
         'clientes': clientes,
+        'usuarios': usuarios
     }
     
     return render(request, 'index.html', context)
@@ -99,3 +102,22 @@ def dependente(request):
         
 
     return render(request, 'dependente.html', context)
+
+
+# Usuário
+
+def usuarioCadastrar(request):
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print('VOU SALVAR')
+            return redirect('index')
+    else:
+        form = UsuarioForm()
+        print('DEU RUIM')
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'usuario_cadastrar.html', context)

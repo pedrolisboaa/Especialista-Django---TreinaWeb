@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<div class="container">
+    <h1>Novo Usuário</h1>
+    <form action="{% url 'usuario_cadastrar' %}" method="POST">
+        {% csrf_token %} 
+        {{form.as_p}}
+        <button type="submit">Cadastrar</button>
+    </form>
+</div>
+
+{% endblock conteudo %}

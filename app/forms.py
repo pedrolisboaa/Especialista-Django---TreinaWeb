@@ -1,6 +1,10 @@
 from django import forms 
 from .models import Cliente, Endereco, Dependente
 
+# Isso aqui estou lidando com formulário de autenticação do django na tabela AUTH_USER
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 
 class EnderecoForm(forms.ModelForm):
     class Meta:
@@ -36,3 +40,11 @@ class DependenteForm(forms.ModelForm):
             'telefone': forms.TextInput(attrs={'class': 'form-control'}),  
             'titular': forms.Select(attrs={'class': 'form-control'}),    
         }
+
+
+class UsuarioForm(UserCreationForm):
+    # Ela esta cadastrando diretamente no tabela AUTH_USER d
+    # o django que ja vem junto dele
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
